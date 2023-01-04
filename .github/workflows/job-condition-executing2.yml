@@ -25,6 +25,7 @@ jobs:
     steps:
       - run: echo dev-step-1
       - run: echo dev-step-2
+      - run: exit 1
 
   PrdJob:
     runs-on: ubuntu-latest
