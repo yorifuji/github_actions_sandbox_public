@@ -6,9 +6,6 @@ on:
 permissions:
   contents: read
 
-env:
-  target: job1
-
 jobs:
   CheckEnvJob:
     runs-on: ubuntu-latest
@@ -16,7 +13,7 @@ jobs:
       - name: check-env
         id: check-env
         run: |
-          ENV=$(sh ./check-env.sh)
+          ENV=dev
           echo '::set-output name=ENV::${ENV}'
     outputs:
       env: $ {{ steps.check-env.outputs.ENV }}
