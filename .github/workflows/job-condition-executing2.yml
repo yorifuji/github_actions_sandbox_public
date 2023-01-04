@@ -15,7 +15,7 @@ jobs:
         id: check-env
         run: |
           ENV=dev
-          echo '::set-output name=ENV::${ENV}'
+          echo 'ENV=dev' >> $GITHUB_OUTPUT
     outputs:
       env: $ {{ steps.check-env.outputs.ENV }}
 
