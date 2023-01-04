@@ -7,7 +7,7 @@ permissions:
   contents: read
 
 env:
-  target: ok # ok or ng
+  target: job1
 
 jobs:
   pre-process:
@@ -19,34 +19,29 @@ jobs:
     outputs:
       target-job: ${{ steps.check.outputs.condition }}
 
-  ok:
+  job1:
     runs-on: ubuntu-latest
     needs: [pre-process]
-    if: needs.pre-process.outputs.target-job == 'ok'
+    if: needs.pre-process.outputs.target-job == 'job1'
     steps:
-      - run: echo "ok"
+      - run: echo "job1"
       - run: exit 1
 
-  ng:
+  job2:
     runs-on: ubuntu-latest
     needs: [pre-process]
-    if: needs.pre-process.outputs.target-job == 'ng'
+    if: needs.pre-process.outputs.target-job == 'job2'
     steps:
-      - run: echo "ng"
+      - run: echo "job2"
       - run: exit 1
 
   post-process:
     runs-on: ubuntu-latest
-    needs: [ok, ng]
-    # if: ${{ always() && contains(needs.*.result, 'success') }}
-    # if: contains(needs.ok.result, 'success')
-    # if: contains(needs.*.result, 'success')
-    # if: ${{ needs.ok.result == 'success' || needs.ng.result == 'success' }}
-    # if: ${{ needs.ok.result == 'success' }}
+    needs: [job1, job2]
     # if: |
     #   always() &&
-    #   ((needs.ok.result == 'success' && needs.ng.result == 'skipped') ||
-    #   (needs.ok.result == 'skipped' && needs.ng.result == 'success'))
+    #   ((needs.job1.result == 'success' && needs.job2.result == 'skipped') ||
+    #   (needs.job1.result == 'skipped' && needs.job2.result == 'success'))
     if: always() && contains(needs.*.result, 'success')
     steps:
       - run: echo "post-process"
