@@ -18,33 +18,26 @@ jobs:
     outputs:
       env: $ {{ steps.check-env.outputs.ENV }}
 
-  # dev環境用にfork
   DevJob:
     runs-on: ubuntu-latest
     needs: [CheckEnvJob]
-    if: needs.CheckEnvJob.outputs.env == 'dev' # if文を書くのはここ1回だけ
+    if: needs.CheckEnvJob.outputs.env == 'dev'
     steps:
       - run: echo dev-step-1
       - run: echo dev-step-2
 
-  # prd環境用にfork
   PrdJob:
     runs-on: ubuntu-latest
     needs: [CheckEnvJob]
-    if: needs.CheckEnvJob.outputs.env == 'prd' # if文を書くのはここ1回だけ
+    if: needs.CheckEnvJob.outputs.env == 'prd'
     steps:
       - run: echo prd-step-1
       - run: echo prd-step-2
 
-  # dev, prd環境個別の処理が終わってjoin
   JoinedJob:
     runs-on: ubuntu-latest
     needs: [DevJob, PrdJob]
-    if: always() && contains(needs.*.result, 'success') # if文を書くのはここ1回だけ
+    if: always() && contains(needs.*.result, 'success')
     steps:
       - run: echo join-step-1
       - run: echo join-step-2
-
-    # (補足)
-    # if: contains(needs.*.result, 'success')は以下と同値です
-    # if: (needs.DevJob.result == 'success' || needs.PrdJob.result == 'success')
