@@ -22,7 +22,7 @@ jobs:
   DevJob:
     runs-on: ubuntu-latest
     needs: CheckEnvJob
-    if: needs.CheckEnvJob.outputs.env == 'dev' # if文を書くのはここ1回だけ
+    # if: needs.CheckEnvJob.outputs.env == 'dev' # if文を書くのはここ1回だけ
     steps:
       - run: echo dev-step-1
       - run: echo dev-step-2
@@ -31,7 +31,7 @@ jobs:
   PrdJob:
     runs-on: ubuntu-latest
     needs: CheckEnvJob
-    if: needs.CheckEnvJob.outputs.env == 'prd' # if文を書くのはここ1回だけ
+    # if: needs.CheckEnvJob.outputs.env == 'prd' # if文を書くのはここ1回だけ
     steps:
       - run: echo prd-step-1
       - run: echo prd-step-2
