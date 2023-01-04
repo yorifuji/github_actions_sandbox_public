@@ -16,7 +16,7 @@ jobs:
         run: |
           echo 'my-env=dev' >> $GITHUB_OUTPUT
     outputs:
-      my-env: $ {{ steps.check-env.outputs.my-env }}
+      my-env: ${{ steps.check-env.outputs.my-env }}
 
   DevJob:
     runs-on: ubuntu-latest
