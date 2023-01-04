@@ -14,14 +14,14 @@ jobs:
       - name: check-env
         id: check-env
         run: |
-          echo 'ENV=dev' >> $GITHUB_OUTPUT
+          echo 'my-env=dev' >> $GITHUB_OUTPUT
     outputs:
-      env: $ {{ steps.check-env.outputs.ENV }}
+      my-env: $ {{ steps.check-env.outputs.my-env }}
 
   DevJob:
     runs-on: ubuntu-latest
     needs: [CheckEnvJob]
-    if: needs.CheckEnvJob.outputs.env == 'dev'
+    if: needs.CheckEnvJob.outputs.my-env == 'dev'
     steps:
       - run: echo dev-step-1
       - run: echo dev-step-2
@@ -29,7 +29,7 @@ jobs:
   PrdJob:
     runs-on: ubuntu-latest
     needs: [CheckEnvJob]
-    if: needs.CheckEnvJob.outputs.env == 'prd'
+    if: needs.CheckEnvJob.outputs.my-env == 'prd'
     steps:
       - run: echo prd-step-1
       - run: echo prd-step-2
