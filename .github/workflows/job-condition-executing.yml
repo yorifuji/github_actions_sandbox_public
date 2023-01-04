@@ -37,10 +37,10 @@ jobs:
   post-process:
     runs-on: ubuntu-latest
     needs: [job1, job2]
-    if: |
-      always() &&
-      ((needs.job1.result == 'success' && needs.job2.result == 'skipped') ||
-      (needs.job1.result == 'skipped' && needs.job2.result == 'success'))
-    # if: always() && contains(needs.*.result, 'success')
+    if: always() && contains(needs.*.result, 'success')
+    # if: |
+    #   always() &&
+    #   ((needs.job1.result == 'success' && needs.job2.result == 'skipped') ||
+    #   (needs.job1.result == 'skipped' && needs.job2.result == 'success'))
     steps:
       - run: echo "post-process"
