@@ -7,35 +7,33 @@ permissions:
   contents: read
 
 env:
-  your_condition: ok # ok or ng
+  target: ok # ok or ng
 
 jobs:
   pre-process:
     runs-on: ubuntu-latest
     steps:
-      - id: check_condition
+      - id: check
         run: |
-          echo "condition=$your_condition" >> $GITHUB_OUTPUT
+          echo "condition=$target" >> $GITHUB_OUTPUT
     outputs:
-      condition_result: ${{ steps.check_condition.outputs.condition }}
+      target-job: ${{ steps.check.outputs.condition }}
 
   ok:
     runs-on: ubuntu-latest
     needs: [pre-process]
-    if: needs.pre-process.outputs.condition_result == 'ok'
+    if: needs.pre-process.outputs.target-job == 'ok'
     steps:
       - run: echo "ok"
-      - run: |
-          exit 1
+      - run: exit 1
 
   ng:
     runs-on: ubuntu-latest
     needs: [pre-process]
-    if: needs.pre-process.outputs.condition_result == 'ng'
+    if: needs.pre-process.outputs.target-job == 'ng'
     steps:
       - run: echo "ng"
-      # - run: |
-      #     exit 1
+      - run: exit 1
 
   post-process:
     runs-on: ubuntu-latest
