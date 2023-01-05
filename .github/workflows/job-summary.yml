@@ -43,13 +43,13 @@ jobs:
       - uses: actions/github-script@v6
         with:
           script: |
-            import * as core from '@actions/core'
-              await core.summary
-              .addHeading('Test Results')
-              .addTable([
-                [{ data: 'key', header: true}, { data: 'value', header: true }],
-                ['foo.js', 'Pass '],
-                ['bar.js', 'Fail '],
-                ['test.js', 'Pass ']
-              ])
-              .write()
+            const core = required('@actions/core')
+            await core.summary
+            .addHeading('Test Results')
+            .addTable([
+              [{ data: 'key', header: true}, { data: 'value', header: true }],
+              ['foo.js', 'Pass '],
+              ['bar.js', 'Fail '],
+              ['test.js', 'Pass ']
+            ])
+            .write()
