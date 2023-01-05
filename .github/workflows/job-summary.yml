@@ -21,8 +21,12 @@ jobs:
   pre-process:
     runs-on: ubuntu-latest
     steps:
-      - name: post summary
-        uses: actions/github-script@v6
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+      - run: npm ci
+      - uses: actions/github-script@v6
         with:
           script: |
             import * as core from '@actions/core'
