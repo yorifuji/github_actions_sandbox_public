@@ -43,8 +43,8 @@ jobs:
       - uses: actions/github-script@v6
         with:
           script: |
-            const core = required('@actions/core')
-            await core.summary
+            const actions-core = required('@actions/core')
+            await actions-core.summary
             .addHeading('Test Results')
             .addTable([
               [{ data: 'key', header: true}, { data: 'value', header: true }],
