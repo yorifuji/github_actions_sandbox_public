@@ -8,7 +8,7 @@ permissions:
   contents: read
 
 jobs:
-  job-summary:
+  caller-jobname:
     uses: ./.github/workflows/job-summary.yml
     secrets: inherit
     with:

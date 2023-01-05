@@ -1,4 +1,4 @@
-name: job summary
+name: callee name
 
 on:
   push:
@@ -60,11 +60,17 @@ jobs:
   #           ])
   #           .write()
 
-  show-inputs:
+  # show-inputs:
+  #   runs-on: ubuntu-latest
+  #   timeout-minutes: 30
+  #   steps:
+  #     - uses: actions/github-script@v6
+  #       with:
+  #         script: |
+  #           console.log(inputs)
+
+  callee-job-name:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
-      - uses: actions/github-script@v6
-        with:
-          script: |
-            console.log(inputs)
+      - run: echo "hello"
