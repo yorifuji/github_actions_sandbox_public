@@ -1,0 +1,16 @@
+name: call job summary
+
+on:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  job-summary:
+    uses: ./.github/workflows/job-summary.yml
+    secrets: inherit
+    with:
+      code-sign-style: auto
+      upload-artifact: true

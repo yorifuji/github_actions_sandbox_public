@@ -14,6 +14,18 @@ on:
         required: true
         type: boolean
         default: false
+  workflow_call:
+    inputs:
+      code-sign-style:
+        description: 'Code signing style, auto or manual'
+        required: true
+        type: string
+        default: auto
+      upload-artifact:
+        description: 'Upload artifact'
+        required: true
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -32,21 +44,37 @@ jobs:
   #           const execa = require("execa");
   #           const { stdout } = await execa("echo", ["hello", "world"]);
 
-  pre-process:
+  # pre-process:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/github-script@v6
+  #       with:
+  #         script: |
+  #           await core.summary
+  #           .addHeading('Test Results')
+  #           .addTable([
+  #             [{ data: 'key', header: true}, { data: 'value', header: true }],
+  #             ['foo.js', 'Pass '],
+  #             ['bar.js', 'Fail '],
+  #             ['test.js', 'Pass ']
+  #           ])
+  #           .write()
+
+  show-inputs:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
-      # - uses: actions/setup-node@v3
-      #   with:
-      #     node-version: 16
       - uses: actions/github-script@v6
         with:
           script: |
-            await core.summary
-            .addHeading('Test Results')
-            .addTable([
-              [{ data: 'key', header: true}, { data: 'value', header: true }],
-              ['foo.js', 'Pass '],
-              ['bar.js', 'Fail '],
-              ['test.js', 'Pass ']
-            ])
-            .write()
+            console.log(context)
+            # inputsTable = [
+            #   [{ data: 'key', header: true}, { data: 'value', header: true }],
+            # ]
+            # for ([key, value] of Object.entries(context.payload.inputs)) {
+            #   inputsTable.push([key, value])
+            # }
+            # await core.summary
+            #   .addRaw("### Inputs\n")
+            #   .addTable(inputsTable)
+            #   .write()
