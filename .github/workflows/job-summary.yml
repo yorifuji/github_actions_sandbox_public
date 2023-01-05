@@ -1,0 +1,37 @@
+name: job summary
+
+on:
+  workflow_dispatch:
+    inputs:
+      code-sign-style:
+        description: 'Code signing style, auto or manual'
+        required: true
+        type: string
+        default: auto
+      upload-artifact:
+        description: 'Upload artifact'
+        required: true
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  pre-process:
+    runs-on: ubuntu-latest
+    steps:
+      - name: post summary
+        uses: actions/github-script@v6
+        with:
+          script: |
+            import * as core from '@actions/core'
+              await core.summary
+              .addHeading('Test Results')
+              .addTable([
+                [{ data: 'key', header: true}, { data: 'value', header: true }],
+                ['foo.js', 'Pass '],
+                ['bar.js', 'Fail '],
+                ['test.js', 'Pass ']
+              ])
+              .write()
