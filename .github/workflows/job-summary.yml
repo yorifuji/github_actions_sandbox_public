@@ -68,13 +68,3 @@ jobs:
         with:
           script: |
             console.log(context)
-            # inputsTable = [
-            #   [{ data: 'key', header: true}, { data: 'value', header: true }],
-            # ]
-            # for ([key, value] of Object.entries(context.payload.inputs)) {
-            #   inputsTable.push([key, value])
-            # }
-            # await core.summary
-            #   .addRaw("### Inputs\n")
-            #   .addTable(inputsTable)
-            #   .write()
