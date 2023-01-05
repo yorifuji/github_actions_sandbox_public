@@ -18,6 +18,19 @@ permissions:
   contents: read
 
 jobs:
+  use-execa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - run: npm ci
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            const execa = require("execa");
+            const { stdout } = await execa("echo", ["hello", "world"]);
+
   pre-process:
     runs-on: ubuntu-latest
     steps:
