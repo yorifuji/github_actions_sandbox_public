@@ -8,8 +8,16 @@ permissions:
   contents: read
 
 jobs:
-  caller-jobname:
+  caller-jobname1:
     uses: ./.github/workflows/job-summary.yml
+    secrets: inherit
+    with:
+      code-sign-style: auto
+      upload-artifact: true
+
+  caller-jobname2:
+    uses: ./.github/workflows/job-summary.yml
+    needs: caller-jobname1
     secrets: inherit
     with:
       code-sign-style: auto
