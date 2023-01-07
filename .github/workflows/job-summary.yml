@@ -66,6 +66,7 @@ jobs:
     steps:
       - uses: actions/github-script@v6
         with:
+          debug: true
           script: |
             console.log(this)
 
