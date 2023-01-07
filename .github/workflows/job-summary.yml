@@ -68,8 +68,7 @@ jobs:
         with:
           debug: true
           script: |
-            console.log(context)
-            console.log(github)
+            console.log(context.payload.inputs)
 
   callee-job1:
     runs-on: ubuntu-latest
