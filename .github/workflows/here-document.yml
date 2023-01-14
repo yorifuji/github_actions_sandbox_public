@@ -1,0 +1,27 @@
+name: here document
+
+on:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  here-document:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          cat << EOS > ExportOptions.plist
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+            <dict>
+              <key>manageAppVersionAndBuildNumber</key>
+              <false/>
+              <key>method</key>
+              <string>app-store</string>
+            </dict>
+          </plist>
+          EOS
+          cat ExportOptions.plist
