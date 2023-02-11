@@ -12,3 +12,4 @@ jobs:
       - run: |
           echo hello
           cat README.md
+          cat test.md
