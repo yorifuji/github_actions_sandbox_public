@@ -13,3 +13,4 @@ jobs:
           echo hello
           cat README.md
           cat test.md
+          cat version
