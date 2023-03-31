@@ -10,7 +10,12 @@ outputs:
 runs:
   using: composite
   steps:
-    - run: echo "Hello, ${TARGET}!"
+    - run: |
+          echo "Hello, ${TARGET}!"
+          echo "${{ runner.temp }}/flutter/bin" >> $GITHUB_PATH
+          echo "${{ runner.temp }}/flutter/.pub-cache/bin" >> $GITHUB_PATH
+          echo "FLUTTER_PATH=${{ runner.temp }}/flutter" >> $GITHUB_ENV
+          echo "PUB_CACHE=${{ runner.temp }}/flutter/.pub-cache" >> $GITHUB_ENV
       shell: bash
       env:
         TARGET: ${{ inputs.target }}
