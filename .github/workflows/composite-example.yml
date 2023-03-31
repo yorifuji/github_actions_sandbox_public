@@ -6,7 +6,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Dump GitHub context
-        id: github_context_step
         run: echo '${{ toJSON(github) }}'
       - name: Dump job context
         run: echo '${{ toJSON(job) }}'
@@ -17,7 +16,6 @@ jobs:
         with:
           target: world
       - name: Dump GitHub context
-        id: github_context_step
         run: echo '${{ toJSON(github) }}'
       - name: Dump job context
         run: echo '${{ toJSON(job) }}'
