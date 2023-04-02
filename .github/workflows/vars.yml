@@ -6,4 +6,4 @@ jobs:
   vars:
     runs-on: ubuntu-latest
     steps:
-      - run: echo $${ vars.foobar }}
+      - run: echo ${{ vars.foobar }}
